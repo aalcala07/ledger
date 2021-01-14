@@ -4,6 +4,7 @@ namespace Aalcala\Ledger;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Aalcala\Ledger\Console\Commands\InstallCommand;
 
 class LedgerServiceProvider extends ServiceProvider
 {
@@ -14,39 +15,11 @@ class LedgerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/Ledger.php', 'ledger');
-
-        $this->publishConfig();
-
-        // $this->loadViewsFrom(__DIR__.'/resources/views', 'ledger');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->registerRoutes();
-    }
-
-    /**
-     * Register the package routes.
-     *
-     * @return void
-     */
-    private function registerRoutes()
-    {
-        Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
-        });
-    }
-
-    /**
-    * Get route group configuration array.
-    *
-    * @return array
-    */
-    private function routeConfiguration()
-    {
-        return [
-            'namespace'  => "Aalcala\Ledger\Http\Controllers",
-            'middleware' => 'api',
-            'prefix'     => 'api'
-        ];
+        $this->registerRoutes();
+        $this->registerPublishing();
+        $this->registerMigrations();
+        $this->registerCommands();
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'ledger');
     }
 
     /**
@@ -56,6 +29,7 @@ class LedgerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__ . '/../config/Ledger.php', 'ledger');
         // Register facade
         $this->app->singleton('ledger', function () {
             return new Ledger;
@@ -63,16 +37,46 @@ class LedgerServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the package routes.
+     *
+     * @return void
+     */
+    private function registerRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+    }
+
+    /**
      * Publish Config
      *
      * @return void
      */
-    public function publishConfig()
+    private function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/Ledger.php' => config_path('Ledger.php'),
             ], 'config');
+
+            $this->publishes([
+                __DIR__.'/../resources/stubs/providers/LedgerServiceProvider.stub' => app_path(
+                    'Providers/LedgerServiceProvider.php'
+                ),
+            ], 'ledger-provider');
         }
+    }
+
+    private function registerMigrations()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
+    }
+
+    private function registerCommands()
+    {
+        $this->commands([
+            InstallCommand::class
+        ]);
     }
 }
