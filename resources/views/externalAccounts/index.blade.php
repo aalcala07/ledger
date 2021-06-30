@@ -2,10 +2,6 @@
 
 @section('content')
 
-@if (session('success'))
-    <div class="bg-green-100 p-4 rounded text-green-600 mb-3">{{ session('success') }}</div>
-@endif
-
 <div class="flex flex-col items-center">
     <div class="rounded bg-white p-4 w-full lg:w-2/3">
         <div class="text-green-500 mb-3">

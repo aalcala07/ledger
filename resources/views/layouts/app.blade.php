@@ -29,6 +29,10 @@
             <a class="text-white font-bold text-3xl inline-block" href="{{ route('ledger.dashboard') }}">Ledger</a>
             <div class="text-white font-bold text-3xl">$10,000</div>
         </div>
+
+        @if (session('success'))
+            <div class="bg-green-100 p-4 rounded text-green-600 mb-3">{{ session('success') }}</div>
+        @endif
         
         @yield('content')
     </div>

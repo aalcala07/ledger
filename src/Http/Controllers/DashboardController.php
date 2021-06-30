@@ -64,13 +64,21 @@ class DashboardController extends Controller
     protected function getExternalAccountsCard($externalAccounts)
     {
         $rows = [];
+        $cash = 0;
+        $credit = 0;
         $total = 0;
 
         foreach ($externalAccounts as $account) {
-            $rows[] = [$account->name, '$'.number_format($account->balance/100, 2)];
+            if ($account->balance < 0) {
+                $credit += $account->balance;
+            } else {
+                $cash += $account->balance;
+            }
             $total += $account->balance;
         }
-
+        
+        $rows[] = ['Cash', '$'.number_format($cash/100, 2)];
+        $rows[] = ['Credit', '$'.number_format($credit/100, 2)];
         $rows[] = ['Total', '$'.number_format($total/100, 2)];
 
         return [
