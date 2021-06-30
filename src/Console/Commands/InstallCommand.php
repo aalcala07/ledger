@@ -40,6 +40,8 @@ class InstallCommand extends Command
     {
         $this->callSilent('vendor:publish', ['--tag' => 'ledger-config']);
         $this->callSilent('vendor:publish', ['--tag' => 'ledger-provider']);
+        $this->callSilent('vendor:publish', ['--tag' => 'ledger-assets']);
+        $this->callSilent('migrate');
 
         if (! app()->runningUnitTests()) {
             $this->registerLedgerServiceProvider();

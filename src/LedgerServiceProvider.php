@@ -56,13 +56,18 @@ class LedgerServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/Ledger.php' => config_path('Ledger.php'),
-            ], 'config');
+            ], 'ledger-config');
 
             $this->publishes([
                 __DIR__.'/../resources/stubs/providers/LedgerServiceProvider.stub' => app_path(
                     'Providers/LedgerServiceProvider.php'
                 ),
             ], 'ledger-provider');
+
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/ledger'),
+            ], 'ledger-assets');
+
         }
     }
 

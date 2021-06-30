@@ -19,5 +19,7 @@ Route::namespace('Aalcala\Ledger\Http\Controllers')->group(function () {
         Route::prefix('entries')->as('entries.')->group( function() {
             route::post('/', 'EntryController@create')->name('create');
         });
+
+        Route::resource('externalAccounts', 'ExternalAccountsController');
     });
 });
