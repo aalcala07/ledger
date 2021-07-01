@@ -68,6 +68,10 @@ class LedgerServiceProvider extends ServiceProvider
                 __DIR__.'/../public' => public_path('vendor/ledger'),
             ], 'ledger-assets');
 
+            $this->publishes([
+                __DIR__ . '/../database/seeds/LedgerSeeder.php' => database_path('seeds/LedgerSeeder.php'),
+            ], 'ledger-seeds');
+
         }
     }
 

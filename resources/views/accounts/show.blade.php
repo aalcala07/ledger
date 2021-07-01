@@ -19,7 +19,7 @@
             @if ($account->entries->count())
                 @foreach ($account->entries as $entry)
                     <tr>
-                        <td>{{ (new \Carbon\Carbon($entry->entry_date))->toDateString() }}</td>
+                        <td>{{ (new \Carbon\Carbon($entry->date))->toDateString() }}</td>
                         <td>{{ $entry->description }}</td>
                         @if ($entry->debit_account_id === $account->id) 
                             <td>{{ $entry->amount }}</td>
@@ -52,10 +52,10 @@
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-3">Date and Time</label>
                         <div class="col-sm-5">
-                            <input type="date" name="entry_date" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toDateString() }}">
+                            <input type="date" name="date" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toDateString() }}">
                         </div>
                         <div class="col-sm-4">
-                            <input type="time" name="entry_time" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toTimeString() }}">
+                            <input type="time" name="date" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toTimeString() }}">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -91,10 +91,10 @@
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-3">Entry Date and Time</label>
                         <div class="col-sm-5">
-                            <input type="date" name="entry_date" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toDateString() }}">
+                            <input type="date" name="date" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toDateString() }}">
                         </div>
                         <div class="col-sm-4">
-                            <input type="time" name="entry_time" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toTimeString() }}">
+                            <input type="time" name="date" class="form-control" value="{{ \Carbon\Carbon::now('America/Chicago')->toTimeString() }}">
                         </div>
                     </div>
                     <div class="row mb-3">

@@ -11,7 +11,7 @@ class EntryController extends Controller
     public function create(Request $request)
     {
         $entry = Entry::create([
-            'entry_date' => $request->entry_date . ' ' . $request->entry_time,
+            'date' => $request->date,
             'amount' => $request->amount,
             'description' => $request->description,
             'debit_account_id' => $request->debit_account_id,

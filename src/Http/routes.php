@@ -21,5 +21,6 @@ Route::namespace('Aalcala\Ledger\Http\Controllers')->group(function () {
         });
 
         Route::resource('externalAccounts', 'ExternalAccountsController');
+        Route::resource('income', 'IncomeController');
     });
 });

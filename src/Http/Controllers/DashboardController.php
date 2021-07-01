@@ -21,11 +21,11 @@ class DashboardController extends Controller
                 'options' => [
                     [
                         'label' => 'Manage Income',
-                        'action' => 'accounts.manage.income'
+                        'url' => route('ledger.income.index')
                     ],
                     [
-                        'label' => 'Manage Income Options',
-                        'action' => 'entryTemplates.manage.income'
+                        'label' => 'Create Income Entry',
+                        'url' => route('ledger.income.create')
                     ]
                 ],
                 'action' => [
