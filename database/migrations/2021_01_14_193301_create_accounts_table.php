@@ -17,8 +17,9 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->string('name');
             $table->enum('account_type', ['dividend', 'expense', 'asset', 'liability', 'owners_equity', 'revenue']);
-            $table->boolean('use_sub_accounts');
+            $table->boolean('use_sub_accounts')->default(1);
             $table->unsignedBigInteger('parent_account_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

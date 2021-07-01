@@ -8,7 +8,7 @@ class Account extends Model
 {
     protected $table = "ledger_accounts";
 
-    protected $fillable = ['name', 'account_type', 'parent_account_id'];
+    protected $fillable = ['name', 'account_type', 'parent_account_id', 'user_id'];
 
     protected $appends = ['account_type_human', 'is_debit', 'entries'];
 

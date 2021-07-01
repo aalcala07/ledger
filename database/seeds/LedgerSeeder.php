@@ -1,5 +1,5 @@
 <?php
-namespace Aalcala\Ledger\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Aalcala\Ledger\Account;
@@ -77,7 +77,7 @@ class LedgerSeeder extends Seeder
 
         $consultingRevenue = Account::create([
             'name' => 'Dividends Paid',
-            'account_type' => 'dividends',
+            'account_type' => 'dividend',
             'user_id' => self::USER_ID
         ]);
         
