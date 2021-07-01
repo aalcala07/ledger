@@ -39,4 +39,14 @@ class Account extends Model
     {
         return $this->debits->merge($this->credits);
     }
+
+    public function parent()
+    {
+        return $this->belongsToOne(static::class, 'parent_account_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(static::class, 'parent_account_id');
+    }
 }

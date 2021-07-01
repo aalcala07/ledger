@@ -9,6 +9,6 @@ class Entry extends Model
     //
     protected $table = "ledger_entries";
 
-    protected $fillable = ['entry_date', 'amount', 'description', 'debit_account_id', 'credit_account_id'];
+    protected $fillable = ['date', 'description', 'user_id'];
 
 }

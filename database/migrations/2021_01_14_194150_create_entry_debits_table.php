@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEntriesTable extends Migration
+class CreateEntryDebitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateEntriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ledger_entries', function (Blueprint $table) {
+        Schema::create('ledger_entry_debits', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->string('description')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedSmallInteger('amount');
+            $table->unsignedBigInteger('entry_id');
+            $table->unsignedBigInteger('account_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateEntriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ledger_entries');
+        Schema::dropIfExists('ledger_entry_debits');
     }
 }
