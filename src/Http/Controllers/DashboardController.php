@@ -6,15 +6,24 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Aalcala\Ledger\Account;
 use Aalcala\Ledger\ExternalAccount;
+use Aalcala\Ledger\CustomFunction;
 
 class DashboardController extends Controller
 {
+
+    public $cards;
+
     public function index()
     {
         $externalAccounts = ExternalAccount::where('user_id', auth()->user()->id)->get();
         // $accounts = Account::all();
-        $cards = collect([
+        $this->cards = collect([
             $this->getExternalAccountsCard($externalAccounts),
+        ]);
+
+        $this->addCustomFunctionCards();
+
+        $this->cards->push(
             [
                 'title' => 'Income',
                 'stat' => '$15,984.09',
@@ -56,7 +65,10 @@ class DashboardController extends Controller
                 'title' => 'Income Tax',
                 'stat' => '$1,984.09'
             ]
-        ]);
+        );
+
+        // dd($cards);
+        $cards = $this->cards;
 
         return view('ledger::dashboard', compact('cards'));
     }
@@ -93,5 +105,18 @@ class DashboardController extends Controller
                 'rows' => $rows
             ]
         ];
+    }
+
+    protected function addCustomFunctionCards()
+    {
+        $customFunctions = CustomFunction::where('user_id', auth()->user()->id)->get();
+
+        foreach ($customFunctions as $customFunction) {
+            $stat = $customFunction->evaluate();
+            $this->cards->push([
+                'title' => $customFunction->name,
+                'stat' =>  $stat !== null ? "$" . number_format($stat, 2) : "error"
+            ]);
+        }
     }
 }

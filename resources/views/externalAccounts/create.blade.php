@@ -19,6 +19,12 @@
             @csrf
             <input type="text" name="name" placeholder="Account Name">
 
+            <select name="account_type">
+                @foreach ($accountTypes as $accountType)
+                    <option value="{{ $accountType }}">{{ $accountType }}</option>
+                @endforeach
+            </select>
+
             <button type="submit" class="p-2 rounded bg-green-500 text-white">Create Account</button>
         </form>
     </div>

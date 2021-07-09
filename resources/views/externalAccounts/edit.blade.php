@@ -20,6 +20,15 @@
             @csrf
             @method('PUT')
             <input type="text" name="name" value="{{ $externalAccount->name }}">
+
+            <select name="account_type">
+                @foreach ($accountTypes as $accountType)
+                    <option value="{{ $accountType }}" @if ($accountType === $externalAccount->account_type) selected @endif >{{ $accountType }}</option>
+                @endforeach
+            </select>
+
+            <input type="text" name="code" value="{{ $externalAccount->code }}">
+
             <input type="number" name="balance" step="0.01" value="{{ $externalAccount->balance/100 }}">
 
             <button type="submit" class="p-2 rounded bg-green-500 text-white">Update Account</button>

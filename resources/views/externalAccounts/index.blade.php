@@ -4,10 +4,15 @@
 
 <div class="flex flex-col items-center">
     <div class="rounded bg-white p-4 w-full lg:w-2/3">
-        <div class="text-green-500 mb-3">
+        <div class="text-green-500 mb-6">
             External Accounts
         </div>
-        <div class="mb-3">
+        @foreach ($accountsByType as $type => $externalAccounts)
+        <div class="mb-6">
+            <h3 class="text-green-500 mb-3 text-lg font-bold w-full border-b border-green-500 pb-2">{{ ucwords($type) }} Accounts</h3>
+            @if (empty($externalAccounts))
+                <p>You don't have any {{ $type }} accounts.</p>
+            @else
             <table class="w-full">
                 @forelse ($externalAccounts as $account)
                     <tr>
@@ -39,7 +44,9 @@
                     </tr>
                 @endforelse
             </table>
+            @endif
         </div>
+        @endforeach
         <div><a href="{{ route('ledger.externalAccounts.create') }}" class="p-2 rounded bg-green-500 text-white inline-block">Create Account</a></div>
     </div>
 </div>
