@@ -11,15 +11,14 @@ Route::namespace('Aalcala\Ledger\Http\Controllers')->group(function () {
 
         Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-        Route::prefix('accounts')->as('accounts.')->group( function() {
-            route::get('{account}', 'AccountController@show')->name('show');
-            route::post('/', 'AccountController@create')->name('create');
-        });
-
-        Route::prefix('entries')->as('entries.')->group( function() {
-            route::post('/', 'EntryController@create')->name('create');
-        });
-
+        // Route::prefix('accounts')->as('accounts.')->group( function() {
+        //     Route::
+        //     route::get('{account}', 'AccountController@show')->name('show');
+        //     route::post('/', 'AccountController@create')->name('create');
+        // });
+        
+        Route::resource('accounts', 'AccountController');
+        Route::resource('entries', 'EntryController');
         Route::resource('externalAccounts', 'ExternalAccountsController');
         Route::resource('income', 'IncomeController');
     });

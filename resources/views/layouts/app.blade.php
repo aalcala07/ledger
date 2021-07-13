@@ -33,6 +33,9 @@
         @if (session('success'))
             <div class="bg-green-100 p-4 rounded text-green-600 mb-3">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+            <div class="bg-red-100 p-4 rounded text-red-600 mb-3">{{ session('error') }}</div>
+        @endif
         
         @yield('content')
     </div>

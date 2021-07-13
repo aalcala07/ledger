@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+    const ACCOUNT_TYPES = ['dividend', 'expense', 'asset', 'liability', 'owners_equity', 'revenue'];
+    
     protected $table = "ledger_accounts";
 
     protected $fillable = ['name', 'account_type', 'parent_account_id', 'user_id'];
 
-    protected $appends = ['account_type_human', 'is_debit', 'entries'];
+    protected $appends = ['account_type_human', 'is_debit'];
 
     public function getAccountTypeHumanAttribute()
     {
@@ -27,17 +29,12 @@ class Account extends Model
 
     public function debits()
     {
-        return $this->hasMany('\Aalcala\Ledger\Entry', 'debit_account_id');
+        return $this->hasMany('\Aalcala\Ledger\EntryDebit', 'account_id');
     }
 
     public function credits()
     {
-        return $this->hasMany('\Aalcala\Ledger\Entry', 'credit_account_id');
-    }
-
-    public function getEntriesAttribute()
-    {
-        return $this->debits->merge($this->credits);
+        return $this->hasMany('\Aalcala\Ledger\EntryCredit', 'account_id');
     }
 
     public function parent()

@@ -15,7 +15,7 @@ class CreateEntryDebitsTable extends Migration
     {
         Schema::create('ledger_entry_debits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('amount');
+            $table->unsignedBigInteger('amount');
             $table->unsignedBigInteger('entry_id');
             $table->unsignedBigInteger('account_id');
             $table->timestamps();

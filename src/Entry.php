@@ -11,4 +11,14 @@ class Entry extends Model
 
     protected $fillable = ['date', 'description', 'user_id'];
 
+    public function debits()
+    {
+        return $this->hasMany('\Aalcala\Ledger\EntryDebit', 'entry_id');
+    }
+
+    public function credits()
+    {
+        return $this->hasMany('\Aalcala\Ledger\EntryCredit', 'entry_id');
+    }
+
 }
