@@ -23,21 +23,26 @@
 
 </style>
 <body>
-    <div id="app" class="flex flex-col p-8">
+    <div id="app" class="flex">
 
-        <div class="flex flex-row justify-between mb-3">
-            <a class="text-white font-bold text-3xl inline-block" href="{{ route('ledger.dashboard') }}">Ledger</a>
-            <div class="text-white font-bold text-3xl">$10,000</div>
+        <side-nav></side-nav>
+
+        <div class="flex flex-col flex-grow p-8 mt-10 md:mt-0">
+
+            <div class="flex flex-row justify-between mb-3">
+                <a class="text-white font-bold text-3xl inline-block" href="{{ route('ledger.dashboard') }}">Ledger</a>
+                <div class="text-white font-bold text-3xl">$10,000</div>
+            </div>
+
+            @if (session('success'))
+                <div class="bg-green-100 p-4 rounded text-green-600 mb-3">{{ session('success') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="bg-red-100 p-4 rounded text-red-600 mb-3">{{ session('error') }}</div>
+            @endif
+            
+            @yield('content')
         </div>
-
-        @if (session('success'))
-            <div class="bg-green-100 p-4 rounded text-green-600 mb-3">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
-            <div class="bg-red-100 p-4 rounded text-red-600 mb-3">{{ session('error') }}</div>
-        @endif
-        
-        @yield('content')
     </div>
 </body>
 </html>

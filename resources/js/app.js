@@ -12,6 +12,7 @@
  window.Vue = require('vue').default
  
  
+ Vue.component('side-nav', require('./components/SideNav.vue').default)
  Vue.component('dashboard-card', require('./components/DashboardCard.vue').default)
  Vue.component('options-dropdown', require('./components/OptionsDropdown.vue').default)
  
