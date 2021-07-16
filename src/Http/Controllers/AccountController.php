@@ -47,6 +47,21 @@ class AccountController extends Controller
         return redirect()->route('ledger.accounts.index')->with('success', 'Account created.');
     }
 
+    public function edit(Account $account)
+    {
+        $accountTypes = Account::ACCOUNT_TYPES;
+        return view('ledger::accounts.edit', compact('account', 'accountTypes'));
+    }
+
+    public function update(Request $request, Account $account)
+    {
+        $account->name = $request->name;
+        $account->account_type = $request->account_type;
+        $account->save();
+
+        return back()->with('success', 'Account updated.');
+    }
+
     public function destroy(Account $account)
     {
         $account->delete();
